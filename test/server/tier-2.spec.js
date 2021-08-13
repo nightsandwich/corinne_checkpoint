@@ -27,14 +27,14 @@ describe('Tier 2: Eager Loading, One-To-Many Associations', () => {
 
   describe('Sequelize', () => {
     describe('Class Method: findStatesWithCities', () => {
-      xit('Place.findStatesWithCities is a class method', () => {
+      it('Place.findStatesWithCities is a class method', () => {
         expect(Place.findStatesWithCities).to.be.a(
           'function',
           "findStatesWithCities isn't a class method!"
         );
       });
 
-      xit('Place.findStatesWithCities returns all states', async () => {
+      it('Place.findStatesWithCities returns all states', async () => {
         const states = await Place.findStatesWithCities();
         expect(states).to.be.a('array', "Didn't return an array!");
         expect(states).to.have.lengthOf(2, 'Wrong number of states!');
@@ -45,7 +45,7 @@ describe('Tier 2: Eager Loading, One-To-Many Associations', () => {
         );
       });
 
-      xit("Place.findStateWithCities returns all states and their cities", async () => {
+      it("Place.findStateWithCities returns all states and their cities", async () => {
         const states = await Place.findStatesWithCities();
         const nys = states.find( state => state.place_name === 'new york state');
         expect(nys).to.be.an('object', 'Could not find new york state');
@@ -64,7 +64,7 @@ describe('Tier 2: Eager Loading, One-To-Many Associations', () => {
 
   describe('Express', () => {
     describe('GET /api/places/states', () => {
-      xit('responds with all states', async () => {
+      it('responds with all states', async () => {
         const response = await app.get('/api/places/states');
         expect(response.status).to.equal(200);
         expect(response.body).to.be.an('array');
@@ -74,7 +74,7 @@ describe('Tier 2: Eager Loading, One-To-Many Associations', () => {
         expect(names).to.include('NJ');
       });
 
-      xit('responds with all states and their children', async () => {
+      it('responds with all states and their children', async () => {
         const response = await app.get('/api/places/states');
         expect(response.status).to.equal(200);
         expect(response.body).to.be.an('array');

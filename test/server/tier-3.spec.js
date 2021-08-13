@@ -16,7 +16,7 @@ describe('Tier 3: Virtual Fields, Route Parameters, DELETE Routes', () => {
 
     describe('Virtual Field: isState', () => {
       describe('isState', () => {
-        xit('isState is true if the place is a state', async () => {
+        it('isState is true if the place is a state', async () => {
           const idaho = await Place.create({
             place_name: 'Idaho',
             category: 'STATE',
@@ -25,7 +25,7 @@ describe('Tier 3: Virtual Fields, Route Parameters, DELETE Routes', () => {
         });
 
 
-        xit("isState is virtual (it doesn't appear as a column in the database)", async () => {
+        it("isState is virtual (it doesn't appear as a column in the database)", async () => {
           const idaho = await Place.create({
             place_name: 'Idaho',
             category: 'STATE',
@@ -37,7 +37,7 @@ describe('Tier 3: Virtual Fields, Route Parameters, DELETE Routes', () => {
 
     describe('Virtual Field: nickname', () => {
       describe('nickname', () => {
-        xit('capitalizes first letter of each word', async () => {
+        it('capitalizes first letter of each word', async () => {
           const nyc = await Place.create({
             place_name: 'new york city',
             category: 'CITY',
@@ -45,7 +45,7 @@ describe('Tier 3: Virtual Fields, Route Parameters, DELETE Routes', () => {
           expect(nyc.nickname).to.equal('NYC');
         });
 
-        xit("nickname is virtual (it doesn't appear as a column in the database)", async () => {
+        it("nickname is virtual (it doesn't appear as a column in the database)", async () => {
           const nyc = await Place.create({
             place_name: 'new york city',
             category: 'CITY',
@@ -70,14 +70,14 @@ describe('Tier 3: Virtual Fields, Route Parameters, DELETE Routes', () => {
 
     describe('DELETE /api/places/:id', () => {
 
-      xit('deletes an existing place by its id', async () => {
+      it('deletes an existing place by its id', async () => {
         const response = await app.delete(`/api/places/${nyc.id}`);
         expect(response.status).to.equal(204);
         nyc = await Place.findByPk(nyc.id);
         expect(nyc, 'new york city should have been deleted, but was not').to.equal(null);
       });
 
-      xit('responds with 404 if the user does not exist', async () => {
+      it('responds with 404 if the user does not exist', async () => {
         const response = await app.delete('/api/places/121');
         expect(response.status).to.equal(404);
       });

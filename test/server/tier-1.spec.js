@@ -24,7 +24,7 @@ describe('Tier 1: Basic Fields, Class Methods, GET Routes', () => {
           );
         });
 
-        xit('name must be unique', async () => {
+        it('name must be unique', async () => {
           // We shouldn't be able to create two places with same place_name.
           await Place.create({ place_name: 'NYC' });
           await expect(
@@ -33,7 +33,7 @@ describe('Tier 1: Basic Fields, Class Methods, GET Routes', () => {
           ).to.be.rejected;
         });
 
-        xit('name cannot be null', async () => {
+        it('name cannot be null', async () => {
           // We shouldn't be able to create a place without a place_name 
           await expect(
             Place.create({}),
@@ -41,14 +41,14 @@ describe('Tier 1: Basic Fields, Class Methods, GET Routes', () => {
           ).to.be.rejected;
         });
 
-        xit('place_name cannot be an empty string', async () => {
+        it('place_name cannot be an empty string', async () => {
           // We also shouldn't be able to create a Place with an empty place_name.
           await expect(
             Place.create({ place_name: '' }),
             "We shouldn't be able to create a place with an empty name"
           ).to.be.rejected;
         });
-        xit('place_name cannot be a made of just spaces', async () => {
+        it('place_name cannot be a made of just spaces', async () => {
           // We also shouldn't be able to create a Place with place_name made of spaces 
           await expect(
             Place.create({ place_name: '   ' }),
@@ -58,7 +58,7 @@ describe('Tier 1: Basic Fields, Class Methods, GET Routes', () => {
       });
 
       describe('category', () => {
-        xit('category can be be a "CITY", "STATE", or "COUNTRY"', async () => {
+        it('category can be be a "CITY", "STATE", or "COUNTRY"', async () => {
           const nys = await Place.create({
             place_name: 'New York State',
             category: 'STATE',
@@ -68,12 +68,12 @@ describe('Tier 1: Basic Fields, Class Methods, GET Routes', () => {
           expect(nyc.category).to.equal('CITY');
         });
 
-        xit('category defaults to "STATE" if not provided', async () => {
+        it('category defaults to "STATE" if not provided', async () => {
           const nys = await Place.create({ place_name: 'New York State' });
           expect(nys.category).to.equal('STATE');
         });
 
-        xit('category cannot be null', async () => {
+        it('category cannot be null', async () => {
           const nys = Place.create({ place_name: 'New York State', category: null });
           await expect(
             nys,
@@ -81,7 +81,7 @@ describe('Tier 1: Basic Fields, Class Methods, GET Routes', () => {
           ).to.be.rejected;
         });
 
-        xit('category can ONLY be either "CITY", "STATE", "COUNTRY"', async () => {
+        it('category can ONLY be either "CITY", "STATE", "COUNTRY"', async () => {
           const playground = Place.create({
             place_name: 'playground',
             category: 'PLAYGROUND', // Invalid category! This promise should reject.
@@ -95,14 +95,14 @@ describe('Tier 1: Basic Fields, Class Methods, GET Routes', () => {
     });
 
     describe('Class Method: findCities with no parent', () => {
-      xit('Place.findCitiesWithNoParent is a class method', () => {
+      it('Place.findCitiesWithNoParent is a class method', () => {
         expect(Place.findCitiesWithNoParent).to.be.a(
           'function',
           "findCitiesWithNoParent isn't a class method"
         );
       });
 
-      xit('Place.findCitiesWithNoParent returns all cities with no parentId', async () => {
+      it('Place.findCitiesWithNoParent returns all cities with no parentId', async () => {
         const newYorkState = await Place.create({
           place_name: 'new york state',
           category: 'STATE',
@@ -144,7 +144,7 @@ describe('Tier 1: Basic Fields, Class Methods, GET Routes', () => {
     });
 
     describe('GET /api/places/unassigned', () => {
-      xit('responds with all unassigned cities', async () => {
+      it('responds with all unassigned cities', async () => {
         const response = await app.get('/api/places/unassigned');
         expect(response.status).to.equal(200);
         expect(response.body).to.be.an('array');
